@@ -7,6 +7,7 @@ class main(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi("bedi.ui",self)
+
         self.pencere()
 
     def pencere(self):
@@ -19,13 +20,16 @@ class main(QMainWindow):
         self.pushButton_4.clicked.connect(self.cevabigoster)
         self.radioButton_3.clicked.connect(self.radyo)
         self.label_5.setText("")
-        self.setWindowTitle("Toplama Oyunu")
+
+
         self.show()
         self.e = 5
         self.puan = 0
+
         self.pushButton_5.clicked.connect(self.exit)
         self.sayac = 0
         self.yazdir()
+
     def radyo(self):
         print("Bak bu çok zordur ")
     def exit(self):
@@ -36,6 +40,15 @@ class main(QMainWindow):
         self.puan -= self.e *2
     def cevapla(self):
         cevap = self.lineEdit.text()
+
+        if self.puan > 500:
+            self.setWindowTitle("Mükemmelsin")
+
+        else:
+            self.setWindowTitle("Toplama oyunupy")
+
+
+
         if cevap == self.easyab:
             self.label_5.setText("Dogruu :)")
             self.label_5.setStyleSheet("color : lightgreen")
@@ -44,6 +57,22 @@ class main(QMainWindow):
             self.lineEdit.clear()
             self.yazdir()
             self.sayac +=1
+
+        elif cevap == "puan" or cevap == "PUAN" or cevap == "Puan":
+            self.puan +=100
+            self.label_5.setStyleSheet("color : cyan")
+            self.label_5.setText("+100 PUAN")
+            self.label_8.setText(str(self.puan))
+        elif cevap == "-puan" or cevap == "puan-":
+            self.puan -=100
+            self.label_5.setStyleSheet("color : orange")
+            self.label_5.setText("-100 PUAN")
+            self.label_8.setText(str(self.puan))
+        elif cevap == "++puan" or cevap == "puan++":
+            self.puan += 1000
+            self.label_5.setStyleSheet("color : blue")
+            self.label_5.setText("+1000 PUAN!")
+            self.label_8.setText(str(self.puan))
         else:
             self.label_5.setText("Yanlis :/")
             self.label_5.setStyleSheet("color: red")
